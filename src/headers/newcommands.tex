@@ -1,0 +1,59 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% new commands
+
+% includes pdf file from obj directory (you can use ':' as
+% directory separator if object is in differen directory)
+% 1 optional parameter - width of included pdf file
+% 2 parameter - path to object relative to obj directory
+\newcommand{\includeobj}[2][0.5\linewidth]{
+	\ifINCLUDEOBJS
+		\IfBeginWith{#2}{png:}%
+			{\StrSubstitute[1]{#2.png}{:}{/}[\includeobjfilename]}%
+			{\StrSubstitute[1]{obj/#2.pdf}{:}{/}[\includeobjfilename]}
+		\includegraphics[width=#1,keepaspectratio]{\includeobjfilename}
+	\else
+		here will be ,,#1``
+	\fi
+}
+
+% includes pdf file from obj directory as figure
+% 1 optional parameter - width of included pdf file
+% 2 parameter - path to object (see \includeobj). This path
+% will be also used as label
+% 3 parameter - caption (if you do not want to insert caption
+% pass empty string
+\newcommand{\includefloatingobj}[3][0.5\linewidth]{
+	\begin{figure}[h!tbp]
+		\centering{
+			\frame{\includeobj[#1]{#2}}%
+			\ifx\\#3\\\else\caption{{#3}}\fi%
+			\label{#2}%
+		}
+	\end{figure}
+}
+
+\newcommand{\includetwofloatingobjs}[6][0.45]{
+	\begin{figure}[h!tbp]
+		\centering{
+			\begin{minipage}{\linewidth}
+			\begin{adjustwidth}{0em}{0em} % overwrite page margins
+				\begin{minipage}{#1\linewidth}
+					\frame{\includeobj[\linewidth]{#2}}
+					\ifx\\#3\\\else\caption{{#3}}\fi
+					\label{#2}
+				\end{minipage}
+				\qquad
+				\begin{minipage}{#1\linewidth}
+					\frame{\includeobj[\linewidth]{#4}}
+					\ifx\\#5\\\else\caption{{#5}}\fi
+					\label{#4}
+				\end{minipage}
+				\ifx\\#6\\\else\caption{{#6}}\fi
+			\end{adjustwidth}
+			\end{minipage}
+		}
+	\end{figure}
+}
+
+
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+\newcommand\silentsection[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}

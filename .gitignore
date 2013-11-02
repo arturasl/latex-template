@@ -1,0 +1,12 @@
+src/tex/*
+src/pseudocode/*
+src/png/*
+src/inkscape/*
+src/gpline/*
+src/dot/*
+src/dia/*
+
+obj/*
+output/*
+
+!PASS

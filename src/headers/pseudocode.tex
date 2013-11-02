@@ -1,0 +1,13 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% pseudocode
+
+\ifMINTED
+	\usepackage{minted}
+	\newminted{pseudo}{linenos,tabsize=2,samepage,mathescape=true,fontfamily=tt,fontsize=\scriptsize}
+	\newminted{sql}{linenos,tabsize=2,samepage,mathescape=true,fontfamily=tt,fontsize=\scriptsize}
+\else
+	\usepackage{fancyvrb}
+	\DefineVerbatimEnvironment{pseudocode}{Verbatim}{fontsize=\small}
+	\DefineVerbatimEnvironment{sqlcode}{Verbatim}{fontsize=\small}
+	\newenvironment{listing}[0]{\begin{figure}[h]}{\end{figure}}
+	\newcommand\listingscaption{Listing}
+\fi

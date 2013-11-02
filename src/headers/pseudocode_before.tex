@@ -1,0 +1,13 @@
+\documentclass[lithuanian]{standalone}
+\input{conditions}
+\usepackage[lithuanian]{babel}
+\renewcommand{\ttdefault}{lmtt} % Lithuanian encoding breaks verbatim environment - this line fixes that
+\usepackage{fontspec}
+\usepackage{ifxetex}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\input{pseudocode}
+\begin{document}
+\begin{minipage}[b]{\linewidth}
+\begin{adjustwidth}{2em}{2em}

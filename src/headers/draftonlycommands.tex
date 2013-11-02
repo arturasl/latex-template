@@ -1,0 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% commands that are useful only in draft mode
+
+\ifDRAFT
+	\newcommand{\gap}[1]{\emph{\color{red} {#1}}} % for writing random thoughts
+	\newcommand{\commentenv}[1]{\begin{description} {#1} \end{description}}
+	\newcommand{\commentby}[1]{\color{gray} \item[{#1}:] }
+	\newcommand{\logicerr}[1]{{\color{green} {#1}}}
+	\newcommand{\typo}[1]{{\color{blue} {#1}}}
+	\newcommand{\RandomIdeaStart}[0]{\begin{center}\line(1,0){250}\end{center}\small{\gap{Mano pastebėjimų pradžia}}\normalsize\xspace}
+	\newcommand{\RandomIdeaEnd}[0]{\hfill\small{\gap{Mano pastebėjimų pabaiga}}\begin{center}\line(1,0){250}\end{center}\normalsize\xspace}
+\else
+	\newcommand{\gap}[1]{}
+	\newcommand{\commentenv}[1]{}
+	\newcommand{\commentby}[1]{}
+	\newcommand{\logicerr}[1]{{#1}}
+	\newcommand{\typo}[1]{{#1}}
+	\newcommand{\RandomIdeaStart}[0]{}
+	\newcommand{\RandomIdeaEnd}[0]{}
+\fi

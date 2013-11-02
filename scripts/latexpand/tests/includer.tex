@@ -1,0 +1,21 @@
+\documentclass{article}
+
+\begin{document}
+beforeinput\input{foo}afterinput
+
+beforeinput.tex\input{foo.tex}afterinput.tex
+
+before inclusion of just-comment\input just-comment.tex after inclusion of just-comment
+
+before inclusion of no-eol\input no-eol after inclusion of no-eol.
+
+before inclusion of no-eol\input{no-eol}after inclusion of no-eol (braces).
+
+beforeinclude\include{foo}afterinclude
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

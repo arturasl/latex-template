@@ -1,0 +1,57 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% useful packages
+
+% simple string manipulations (replace in string, check if string contains substring, etc.)
+\usepackage{xstring}
+
+% adds links on citations, references, etc. (notable macros: \href{url}{text} and \url{url})
+\usepackage{hyperref}
+
+% allows to check if xetex is used to compile current file
+\usepackage{ifxetex}
+
+% gives \xspace macro which adds space unless next character is punctuation character
+% useful in creating new commands with no parameters - \newcommand{\hello}{hello} would
+% require to write \hello{} (or else next space would be eaten)
+\usepackage{xspace}
+
+% allows to easily define new colors (and change colors of certain document elements like
+% color even rows of table (needs table option))
+\usepackage[table]{xcolor}
+
+% ads macros for text underlining (\sout{strike through}, \uline{underline}, etc.)
+\usepackage{ulem}
+
+% allows to change page color, text color, etc.; rotate, stretch text, etc.; including other
+% graphical elements to generated page (png, pdf figures)
+\usepackage{graphicx}
+
+% allows to change various spacing parameters for list (itemize, enumerate)
+\usepackage{tweaklist}
+
+% allows changing way how captions are rendered (add dot after reference name, reference name,
+% etc.) in various environments (tabular, float, etc.)
+% also give \captionof macro which allows adding captions outside of float
+\usepackage{caption}
+
+% allows to change footnote style (reset numbering after each page, use symbols instead
+% of numbers, etc.)
+% stable - allow footnotes in \section{} macro
+% multiple - separate multiple footnotes (\footnote{a}\footnote{b}) with comma
+\usepackage[stable,multiple]{footmisc}
+
+% lots of additional symbols (like \mathbb{N} for natural number ring)
+\usepackage{amssymb}
+\renewcommand{\emptyset}{\varnothing}
+
+% writing documents with several columns (use \columnbreak for manual break).
+\usepackage{multicol}
+
+% detecting odd/even pages
+% changing margins of page or text blocks
+\usepackage{changepage}
+
+% undocumented
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{tikz}

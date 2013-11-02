@@ -1,0 +1,11 @@
+333c333,340
+<                 value = escape_tex(value, self.commandprefix)
+---
+>                 parts = value.split('$')
+>                 in_math = False
+>                 for i, part in enumerate(parts):
+>                     if not in_math:
+>                         parts[i] = escape_tex(part, self.commandprefix)
+>                     in_math = not in_math
+>                 value = '$'.join(parts)
+>                 #value = escape_tex(value, self.commandprefix)

@@ -1,0 +1,52 @@
+LATEXPAND(1)          User Contributed Perl Documentation         LATEXPAND(1)
+
+
+
+NNAAMMEE
+       latexpand - Flatten LaTeX file by expanding \include and \input, remove
+       comments
+
+SSYYNNOOPPSSIISS
+       latexpand [options] FILE...
+
+        Options:
+               --verbose        show what's going on
+               --keep-comments  don't strip comments
+               --empty-comments keep empty comments (i.e. % at end of lines) for clarity
+               --keep-includes  don't expand \input and \include directives
+               --expand-usepackage
+                                Expand \usepackage{...} directives if the
+                                corresponding .sty file is found in
+                                $TEXINPUTS
+               --expand-bbl FILE
+                                Expand the bibliography by inlining FILE
+                                (should be a *.bbl file)
+               --help           this help message
+               --output <file>, -o <file>
+                                generate output in <file>
+               --explain        generate explanatory comments in output
+               --show-graphics  show included graphics
+               --graphics_extensions
+                                colon-separated list of possible graphics extensions
+                                (used by --show-graphics to find the actual graphics files)
+
+UUSSEESS
+       The most common use of latexpand is to simplify distribution of source
+       LaTeX files, typically to satisfy the requirement of editors and
+       archival sites (springer, arXiv.org, ...) who force the authors to
+       submit sources. One does not necessarily want to submit sources with
+       comments, and uploading a document made of several files including each
+       other is a bit painful. By default, latexpand answers both problems by
+       outputing a single LaTeX file that contain no comment.
+
+GGEETTTTIINNGG LLAATTEEXXPPAANNDD
+       The latest version of latexpand is available here:
+
+         https://gitorious.org/latexpand
+
+BBUUGGSS
+       Please, report bugs to Matthieu Moy <Matthieu.Moy@imag.fr>.
+
+
+
+perl v5.10.1                      2012-11-07                      LATEXPAND(1)

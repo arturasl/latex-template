@@ -1,0 +1,4 @@
+build/
+dist/
+PseudoLexer.egg-info/
+test/

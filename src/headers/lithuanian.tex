@@ -1,0 +1,66 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Lithuanian
+
+% automatically rename document elements (contents <-> turinys, etc.)
+\usepackage[lithuanian]{babel}
+\usepackage[style=german,strict=true,maxlevel=2]{csquotes}
+\MakeOuterQuote{"}
+% http://comp.text.tex.narkive.com/pMGSwIkv/csquotes-suggestion-if-xspace-is-loaded
+\xspaceaddexceptions{%
+\textquotedblleft,%
+\textquotedblright,%
+\quotedblbase,%
+\guillemotleft,%
+\guillemotright,%
+\textquoteleft,%
+\textquoteright,%
+\quotesinglbase,%
+\guilsinglleft,%
+\guilsinglright,%
+\mkfrenchopenquote,%
+\mkfrenchclosequote,%
+}
+
+\ifxetex
+	% to get font: http://ftp.akl.lt/Linux/Baltix/Ubuntu/Baltix-Linux/Baltix-Ubuntu-packages/jaunty/ttf-palemonas/
+	\usepackage{fontspec}
+
+	% allow to use ascents on Latin letters (for example \k{a})
+	\usepackage{xunicode}
+
+	\ifPALEMONAS
+		\newfontfamily\sss{Palemonas}
+		\setmainfont{Palemonas}
+	\fi
+\else
+	\usepackage[utf8x]{inputenc}
+	\usepackage[L7x]{fontenc}
+\fi
+
+% Lithuanian encoding breaks verbatim environment - this line fixes that
+\renewcommand{\ttdefault}{lmtt}
+
+% fixing captions
+\captionsetup[table]{labelsep=space}      % do not add colon after table names (Table.: <- colon is bad)
+\captionsetup[figure]{labelsep=space}     % do not add colon after figure names (Pav.: <- colon is bad)
+\captionsetup[lstlisting]{labelsep=space} % also no column after lstlisting names
+\captionsetup[listing]{labelsep=space}    % also no column after minted code blocks names
+
+% use same labels for lstlistings as for other figures (Pav. insteand of Listing:)
+\def\lstlistingname{\figurename}
+\def\lstlistlistingname{\figurename}
+\def\lstlistingautorefname{\figurenameautorefname}
+
+% label below mited code blocks, should be same as figure names
+\def\listingscaption{\figurename}
+
+% commands for writing shorthands
+\newcommand{\eng}[1]{(angl. \emph{#1})}
+\newcommand{\shortform}[1]{(toliau #1)}
+\newcommand{\engshortform}[2]{(angl. \emph{#1}, toliau #2)}
+\newcommand{\citep}[2]{\cite[p. {#1}]{{#2}}} % yes, there are a lot of similar commands...
+
+% distance between figures and captions
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{4pt}
+\setlength{\intextsep}{8pt plus 1pt minus 1pt}
+% \setlength{\textfloatsep}{5pt plus 1pt minus 1pt}

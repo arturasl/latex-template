@@ -1,0 +1,15 @@
+\date{Vilnius \\ \the\year}
+
+\setcounter{secnumdepth}{5} % add numbers to \paragraph and \subparagrap
+\setcounter{tocdepth}{5}    % add \paragraph and \subparagrap to toc
+% commands for more sub*sections
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}\mbox{}\\}
+
+% always indent first paragraph
+%\usepackage{indentfirst}
+
+% spacing around lists is too large so make it smaller
+\renewcommand{\enumhook}{\addtolength{\itemsep}{-0.5\baselineskip}}
+\renewcommand{\itemhook}{\addtolength{\itemsep}{-0.5\baselineskip}}
+\renewcommand{\descripthook}{\addtolength{\itemsep}{-0.5\baselineskip}}

@@ -1,0 +1,11 @@
+latexpand version 75b7b24a347f4dcb08335b557f55c94c615f8e7a.
+Commited on Thu May 30 10:29:18 2013 +0300
+diff --git a/Bachelor/src/irankis.tex b/Bachelor/src/irankis.tex
+index 691438c..946b45b 100644
+--- a/Bachelor/src/irankis.tex
++++ b/Bachelor/src/irankis.tex
+@@ -80,7 +80,7 @@ Nors tą ir sunku pasakyti iš grafikų, galima paminėti, kad "\IND kaip \FD" g
+ % (1298.0 * 100) / 1343.0
+ % (1353.0 * 100) / 1403.0
+ 
+-"\IND kaip dvipusė \FD" bei "supaprastintas \IND kaip dvipusė \FD" generavo vienodą kiekį santykių. Taip atsitiko dėl to, kad supaprastinimas buvo atliekamas tik šalinant perteklinius atributus, kurių kiekis niekaip neįtakojo santykių kiekio. Nors tai ir nėra intuityvu, tačiau šių atributų šalinimas padidino bendrą \DB plotą. Šis ploto padidėjimas buvo įtakotas papildomų kortežų atsiradimo, kurių nebūtų pavykę įterpti dėl pašaliniams atributams keliamų apribojimų. Šie kortežai taip pat leido išsaugoti daug didesnį unikalių reikšmių kiekį, jeigu tiksliau, tai "supaprastintas \IND kaip dvipusė \FD" leido vidutiniškai išsaugoti $15,41\%$ daugiau reikšmių nei paprastas jungimas. Norint supaprasti, kodėl dvipusis supaprastintas jungimas prarado duomenis, reikia prisiminti, ką šis jungimas daro - jis pašalina dvipusės \FD atributus, jei jie pakliūna į tą patį santykį. Tačiau, jei \IND $R_1[A_1 

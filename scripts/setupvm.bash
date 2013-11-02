@@ -21,10 +21,10 @@ sudo apt-get install -y evince
 sudo apt-get install -y python python3 python-setuptools
 sudo easy_install Pygments
 if [ -z "$(pygmentize -L | grep 'pseudo:$')" ]; then
-	cd /vagrant/scripts/lexer/
+	cd /vagrant/latex-template/scripts/lexer/
 	sudo python setup.py develop
 fi
-sudo patch /usr/local/lib/python2.7/dist-packages/Pygments-1.6-py2.7.egg/pygments/formatters/latex.py < /vagrant/scripts/lexer/pygments.patch
+sudo patch /usr/local/lib/python2.7/dist-packages/Pygments-1.6-py2.7.egg/pygments/formatters/latex.py < /vagrant/latex-template/scripts/lexer/pygments.patch
 
 # fonts
 if [ ! -d /usr/local/share/fonts/truetype/palemonas ]; then

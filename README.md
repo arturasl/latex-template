@@ -3,13 +3,13 @@
 To create a new project by using this template execute:
 
 ```bash
-	proj="new"
-	mkdir -p "${HOME}/Projects/Latex/${proj}"
-	cd "${HOME}/Projects/Latex/${proj}"
-	git init
-	git add submodule https://github.com/arturasl/latex-template.git latex-template
-	cd latex-template/scripts
-	./init.bash
+proj="new"
+mkdir -p "${HOME}/Projects/Latex/${proj}"
+cd "${HOME}/Projects/Latex/${proj}"
+git init
+git submodule add https://github.com/arturasl/latex-template.git latex-template
+cd latex-template/scripts
+./init.bash
 ```
 
 This will create a new project called "new" in Projects/Latex directory and fill it with some stub files.

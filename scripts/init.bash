@@ -15,13 +15,13 @@ cat <<EOF > Makefile
 .PHONY: run all clean
 
 all:
-	cd latex-template/; echo 'cd /vagrant && make all && exit' | vagrant ssh
+	cd latex-template/; echo 'cd /vagrant/latex-template && make all && exit' | vagrant ssh
 
 run:
 	~/configs/scripts/showme.bash --silent-detached latex-template/output/main.pdf
 
 clean:
-	cd latex-template/; echo 'cd /vagrant && make clean && exit' | vagrant ssh
+	cd latex-template/; echo 'cd /vagrant/latex-template && make clean && exit' | vagrant ssh
 
 EOF
 

@@ -4,12 +4,12 @@ cd ../../
 
 ( cd latex-template && vagrant up )
 
-mkdir dia && ln -s ../../dia latex-template/src/dia
-mkdir dot && ln -s ../../dot latex-template/src/dot
-mkdir gpline && ln -s ../../gpline latex-template/src/gpline
-mkdir inkscape && ln -s ../../inkscape latex-template/src/inkscape
-mkdir png && ln -s ../../png latex-template/src/png
-mkdir tex && ln -s ../../tex latex-template/src/tex
+mkdir dia; ln -s ../../dia latex-template/src/dia
+mkdir dot; ln -s ../../dot latex-template/src/dot
+mkdir gpline; ln -s ../../gpline latex-template/src/gpline
+mkdir inkscape; ln -s ../../inkscape latex-template/src/inkscape
+mkdir png; ln -s ../../png latex-template/src/png
+mkdir tex; ln -s ../../tex latex-template/src/tex
 
 cat <<EOF > Makefile
 .PHONY: run all clean
@@ -25,7 +25,7 @@ clean:
 
 EOF
 
-cat <<EOF > bibliography.bib
+[ ! -f bibliography.bib ] && cat <<EOF > bibliography.bib
 @article{test,
 	author = "author",
 	title = "title ",
@@ -34,7 +34,7 @@ cat <<EOF > bibliography.bib
 EOF
 ln -s ../../../bibliography.bib latex-template/src/bib/bibliography.bib
 
-cat <<EOF > tex/main.tex
+[ ! -f tex/main.tex ] && cat <<EOF > tex/main.tex
 \documentclass[12pt, a4paper, lithuanian]{article}
 
 \input{conditions}

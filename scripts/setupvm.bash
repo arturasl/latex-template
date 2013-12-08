@@ -2,7 +2,7 @@
 
 sudo apt-get -y update
 # core stuff
-sudo apt-get install -y make vim-gnome patch
+sudo apt-get install -y make vim-gnome patch unzip
 # latex stuff
 sudo apt-get install -y texlive-full
 if [ ! -d /home/vagrant/texmf/tex/latex/standalone ]; then
@@ -32,5 +32,5 @@ if [ ! -d /usr/local/share/fonts/truetype/palemonas ]; then
 	sudo mkdir -p /usr/local/share/fonts/truetype/palemonas
 	sudo cp Palemonas-2.1/*.ttf /usr/local/share/fonts/truetype/palemonas
 	sudo fc-cache
-	rm -rf Palemonas-2.1
+	rm -rf Palemonas*
 fi

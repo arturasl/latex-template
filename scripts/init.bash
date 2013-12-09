@@ -4,12 +4,12 @@ cd ../../
 
 ( cd latex-template && vagrant up )
 
-mkdir dia; ln -s ../../dia latex-template/src/dia
-mkdir dot; ln -s ../../dot latex-template/src/dot
-mkdir gpline; ln -s ../../gpline latex-template/src/gpline
-mkdir inkscape; ln -s ../../inkscape latex-template/src/inkscape
-mkdir png; ln -s ../../png latex-template/src/png
-mkdir tex; ln -s ../../tex latex-template/src/tex
+for dir in dia dot gpline inkscape png tex; do
+	if [ ! -d "$dir" ]; then
+		mkdir "$dir"
+		ln -s "../../${dir}" "latex-template/src/${dir}"
+	fi
+done
 
 cat <<EOF > Makefile
 .PHONY: run all clean

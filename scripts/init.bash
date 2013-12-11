@@ -46,6 +46,15 @@ ln -s ../../../bibliography.bib latex-template/src/bib/bibliography.bib
 \input{generalstyle}
 \input{newcommands}
 
+\vumifpaper{}
+\title{\large\textbf{Savioptimizavimas reliacinėse duomenų bazių sistemose}\\(angl. Self-optimization in relational database management systems)\\\vspace{0.5cm}\small{Tema}}
+\author{
+    1 kurso 8 grupės studentas \\
+    Artūras Lapinskas\hspace{0.7cm}
+}
+\supervisor{a. I. Radavičius\hspace{1.2cm}}
+\reviewer{doc. dr. V. Tumasonis\hspace{0.1cm}}
+
 \usepackage{listings}
 \lstset{breaklines=true}
 \newcommand{\wrapingverb}{\lstinline[basicstyle=\normalsize\ttfamily]}

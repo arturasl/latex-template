@@ -180,10 +180,14 @@
 
 % 'Turinys' centruotas ir pagrindinio teksto šrifto bei dydžio
 \renewcommand\tableofcontents{%
-    % Visame dokumente už titulinio lapo:
-    % Viršutinė paraštė 3 cm, apatinė paraštė 2 cm,
-    % kairė paraštė 3 cm, dešinė paraštė ne mažiau 1 cm.
-    \setmarginsrb{3cm}{3cm}{1cm}{2cm}{12pt}{20pt}{0pt}{0mm}%
+	\setmarginsrb {3cm}  % left margin
+				  {2cm}  % top margin
+				  {1.5cm}  % right margin
+				  {2cm}  % bottom margin
+				  {12pt}  % head height
+				  {20pt}  % head sep
+				  {0pt}  % foot height
+				  {0mm}  % foot sep
     \pagestyle{plain}%
     % Turinys su viengubu intervalu tarp eilučių
     \begin{singlespacing}%
@@ -229,11 +233,11 @@
 
 % Puslapiai numeruojami viršuje
 \def\ps@plain{%
-	\renewcommand{\@oddhead}{\hfill\textrm{\thepage}\hfill}%
+	\renewcommand{\@oddhead}{}%
 	%\renewcommand{\@oddhead}{}%
     \renewcommand{\@evenhead}{\@oddhead}%
     %\renewcommand{\@evenfoot}{\hfill\textrm{\thepage}}%
-	\renewcommand{\@evenfoot}{}%
+	\renewcommand{\@evenfoot}{\hfill\textrm{\thepage}}%
     \renewcommand{\@oddfoot}{\@evenfoot}%
 }
 

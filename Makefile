@@ -51,9 +51,9 @@ $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEDOCODE
 	$(BIBTEX) $(OBJDIR)/$(MAIN_FILE)
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
-	( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) )
-	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
-	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	# ( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) )
+	# $(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	# $(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	mv $(OBJDIR)/$(MAIN_FILE).pdf $(OUTPUTDIR)
 
 $(OBJDIR)/$(PSEUDOCODEDIR)/%.pdf: src/$(PSEUDOCODEDIR)/%.* src/headers/*.tex

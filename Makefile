@@ -31,6 +31,8 @@ CC := xelatex
 # -min-crossref=1 after any \cite command appropriative bib item will appear
 BIBTEX := bibtex -min-crossref=1 -terse
 
+GLOSSARIES := makeglossaries -L lithuanian
+
 .PHONY: clean run all objstructure
 
 all: objstructure $(OUTPUTDIR)/$(MAIN_FILE).pdf
@@ -47,6 +49,9 @@ objstructure:
 $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEDOCODEFILES) $(DOTFILES) $(DIAFILES) $(INKSCAPEFILES) $(GPLINEFILES)
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	$(BIBTEX) $(OBJDIR)/$(MAIN_FILE)
+	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) )
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	mv $(OBJDIR)/$(MAIN_FILE).pdf $(OUTPUTDIR)

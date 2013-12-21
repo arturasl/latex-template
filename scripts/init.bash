@@ -49,10 +49,9 @@ ln -s ../../../bibliography.bib latex-template/src/bib/bibliography.bib
 \vumifpaper{}
 \title{\large\textbf{Savioptimizavimas reliacinėse duomenų bazių sistemose}\\(angl. Self-optimization in relational database management systems)\\\vspace{0.5cm}\small{Tema}}
 \author{
-    1 kurso 8 grupės studentas \\
-    Artūras Lapinskas\hspace{0.7cm}
+    Artūras Lapinskas\hspace{0.7cm} % kursas nenurodomas
 }
-\supervisor{a. I. Radavičius\hspace{1.2cm}}
+\supervisor{lekt. I. Radavičius\hspace{1.2cm}}
 \reviewer{doc. dr. V. Tumasonis\hspace{0.1cm}}
 
 \usepackage{listings}
@@ -62,10 +61,24 @@ ln -s ../../../bibliography.bib latex-template/src/bib/bibliography.bib
 \usepackage{multirow}
 \begin{document}
 
-%\input{smth}
-
-\cite{test}
-\bibliography{}
+\input{appendix}
 
 \end{document}
+EOF
+
+[ ! -f tex/glossary.tex ] && cat <<EOF > tex/glossary.tex
+\newglossaryentry{label1} {
+  name=name,
+  description={desc}
+}
+
+\newacronym{label2}{abbriaviation}{long name}
+EOF
+
+[ ! -f tex/appendix.tex ] && cat <<EOF > tex/appendix.tex
+\cite{test}
+\bibliography{}
+\printindex
+\printglossaries
+% \appendix
 EOF

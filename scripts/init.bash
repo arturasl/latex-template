@@ -12,13 +12,16 @@ for dir in dia dot gpline inkscape png tex; do
 done
 
 cat <<EOF > Makefile
-.PHONY: run all clean
+.PHONY: run all clean diff
 
 all:
 	cd latex-template/; vagrant up; echo 'cd /vagrant/latex-template && make all && exit' | vagrant ssh
 
 run:
 	~/configs/scripts/showme.bash --silent-detached latex-template/output/main.pdf
+
+diff:
+	read -p 'Git tag version: ' tag ; cd latex-template/; vagrant up; echo "cd /vagrant/latex-template && make diff GIT_TAG_VERSION=$\$tag && exit" | vagrant ssh
 
 clean:
 	cd latex-template/; vagrant up; echo 'cd /vagrant/latex-template && make clean && exit' | vagrant ssh

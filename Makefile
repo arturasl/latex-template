@@ -68,21 +68,21 @@ $(OBJDIR)/$(PSEUDOCODEDIR)/%.pdf: src/$(PSEUDOCODEDIR)/%.* src/headers/*.tex
 	rm -rf "src/$(PSEUDOCODEDIR)/tmp"
 
 diff:
-	# mkdir -p ./tmp/
-	# git checkout v1.2   && ./tmp/latexpand/latexpand --output tmp/main_old.tex src/main.tex
-	# git checkout master && ./tmp/latexpand/latexpand --output tmp/main_new.tex src/main.tex
-	# latexdiff --encoding=utf-8 --packages=ulem tmp/main_old.tex tmp/main_new.tex > diffs.tex
-	# sed -i'' -e '/\\RequirePackage\[normalem\]{ulem}/d' diffs.tex
-	# sed -i'' -e '/\\usepackage\[style=german,strict=true,maxlevel=2\]/d' diffs.tex
-	# sed -i'' -e '/\\MakeOuterQuote/d' diffs.tex
-	# sed -i'' -e '/\\xspaceaddexceptions/d' diffs.tex
+	mkdir -p ./tmp/
+	( cd .. && git checkout "$(GIT_TAG_VERSION)" ) && ./scripts/latexpand/latexpand --output ./tmp/main_old.tex ./src/tex/main.tex
+	( cd .. && git checkout master ) && ./scripts/latexpand/latexpand --output ./tmp/main_cur.tex ./src/tex/main.tex
+	latexdiff --encoding=utf-8 --packages=ulem tmp/main_old.tex tmp/main_cur.tex > diffs.tex
+	sed -i'' -e '/\\RequirePackage\[normalem\]{ulem}/d' diffs.tex
+	sed -i'' -e '/\\usepackage\[style=german,strict=true,maxlevel=2\]/d' diffs.tex
+	sed -i'' -e '/\\MakeOuterQuote/d' diffs.tex
+	sed -i'' -e '/\\xspaceaddexceptions/d' diffs.tex
 	$(CC) $(LATEXPARAMS) diffs.tex
 	$(BIBTEX) $(OBJDIR)/diffs
 	$(CC) $(LATEXPARAMS) diffs.tex
 	$(CC) $(LATEXPARAMS) diffs.tex
 	mv $(OBJDIR)/diffs.pdf output/diffs.pdf
 	rm -rf diffs.*
-	# rm -rf ./tmp/
+	rm -rf ./tmp/
 
 $(OBJDIR)/$(DOTDIR)/%.pdf: src/$(DOTDIR)/%.dot
 	# read first line of dot file - if it contains comment (//cmd: custom command) strip it and use its contents as dot command

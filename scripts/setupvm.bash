@@ -2,7 +2,7 @@
 
 sudo apt-get -y update
 # core stuff
-sudo apt-get install -y make vim-gnome patch unzip software-properties-common
+sudo apt-get install -y make vim-gnome patch unzip software-properties-common git
 # latex stuff
 sudo apt-get install -y texlive-full
 if [ ! -d /home/vagrant/texmf/tex/latex/standalone ]; then

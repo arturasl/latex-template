@@ -47,13 +47,18 @@ objstructure:
 		$(OBJDIR)/$(GPLINEDIR)
 
 $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEDOCODEFILES) $(DOTFILES) $(DIAFILES) $(INKSCAPEFILES) $(GPLINEFILES)
+	bash -c "rm -f $(OBJDIR)/$(MAIN_FILE).{glg,gls,glo,alg,acr,acn,xdy}" # xindy somehow fails without fully recreating everythin
+	# make
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	# bibliography
 	$(BIBTEX) $(OBJDIR)/$(MAIN_FILE)
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
-	# ( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) )
-	# $(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
-	# $(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	# glossaries
+	( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) )
+	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
+	# move
 	mv $(OBJDIR)/$(MAIN_FILE).pdf $(OUTPUTDIR)
 
 $(OBJDIR)/$(PSEUDOCODEDIR)/%.pdf: src/$(PSEUDOCODEDIR)/%.* src/headers/*.tex

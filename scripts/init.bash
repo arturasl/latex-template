@@ -32,7 +32,8 @@ EOF
 	year = 2005
 }
 EOF
-ln -s ../../../bibliography.bib latex-template/src/bib/bibliography.bib
+
+( dir='latex-template/src/bib/bibliography.bib'; [ ! -L "$dir" ] && ln -s ../../../bibliography.bib "$dir" )
 
 [ ! -f tex/main.tex ] && cat <<EOF > tex/main.tex
 \documentclass[12pt, a4paper, lithuanian]{article}

@@ -71,7 +71,11 @@ diff:
 	mkdir -p ./tmp/
 	( cd .. && git checkout "$(GIT_TAG_VERSION)" ) && ./scripts/latexpand/latexpand --output ./tmp/main_old.tex ./src/tex/main.tex
 	( cd .. && git checkout master ) && ./scripts/latexpand/latexpand --output ./tmp/main_cur.tex ./src/tex/main.tex
-	latexdiff --encoding=utf-8 --packages=ulem tmp/main_old.tex tmp/main_cur.tex > diffs.tex
+	(\
+		SAFE_FOR_DIFF="$(shell grep '\\newcommand{\\[[:alpha:]]\+}{\\emph.\+xspace\}' --only-matching ./tmp/main_cur.tex | cut -b14- | sed -e 's/}.\+//g' | tr '\n' ',')" \
+		&& SAFE_FOR_DIFF="$${SAFE_FOR_DIFF}$(shell grep '\\newcommand{\\[[:alpha:]]\+}{\\emph.\+xspace\}' --only-matching ./tmp/main_old.tex | cut -b14- | sed -e 's/}.\+//g' | tr '\n' ',')" \
+		&& latexdiff --append-safecmd="$${SAFE_FOR_DIFF}shortform,eng" --encoding=utf-8 --packages=ulem tmp/main_old.tex tmp/main_cur.tex > diffs.tex \
+	)
 	sed -i'' -e '/\\RequirePackage\[normalem\]{ulem}/d' diffs.tex
 	sed -i'' -e '/\\usepackage\[style=german,strict=true,maxlevel=2\]/d' diffs.tex
 	sed -i'' -e '/\\MakeOuterQuote/d' diffs.tex

@@ -35,20 +35,22 @@
 	\begin{figure}[h!tbp]
 		\centering{
 			\begin{minipage}{\linewidth}
-			\begin{adjustwidth}{0em}{0em} % overwrite page margins
-				\begin{minipage}{#1\linewidth}
-					\frame{\includeobj[\linewidth]{#2}}
-					\ifx\\#3\\\else\caption{{#3}}\fi
-					\label{#2}
-				\end{minipage}
-				\qquad
-				\begin{minipage}{#1\linewidth}
-					\frame{\includeobj[\linewidth]{#4}}
-					\ifx\\#5\\\else\caption{{#5}}\fi
-					\label{#4}
-				\end{minipage}
-				\ifx\\#6\\\else\caption{{#6}}\fi
-			\end{adjustwidth}
+				\begin{adjustwidth}{0em}{0em} % overwrite page margins
+					\centering{
+						\begin{minipage}{#1\linewidth}
+							\frame{\includeobj[\linewidth]{#2}}
+							\ifx\\#3\\\else\caption{{#3}}\fi
+							\label{#2}
+						\end{minipage}
+						\qquad
+						\begin{minipage}{#1\linewidth}
+							\frame{\includeobj[\linewidth]{#4}}
+							\ifx\\#5\\\else\caption{{#5}}\fi
+							\label{#4}
+						\end{minipage}
+						\ifx\\#6\\\else\caption{{#6}}\fi
+					}
+				\end{adjustwidth}
 			\end{minipage}
 		}
 	\end{figure}

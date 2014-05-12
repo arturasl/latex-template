@@ -5,6 +5,7 @@ src/inkscape
 src/gpline
 src/dot
 src/dia
+src/umlet
 
 obj
 output

@@ -3,6 +3,7 @@
 sudo apt-get -y update
 # core stuff
 sudo apt-get install -y make vim-gnome patch unzip software-properties-common git
+sudo apt-get install -y openjdk-7-jre-headless
 # latex stuff
 sudo apt-get install -y texlive-full
 if [ ! -d /home/vagrant/texmf/tex/latex/standalone ]; then
@@ -16,6 +17,20 @@ fi
 # workers - used to convert various formats to pdf
 sudo apt-get install -y dia inkscape gnuplot imagemagick
 sudo add-apt-repository -y ppa:gviz-adm/graphviz-dev && sudo apt-get -y update && sudo apt-get install -y graphviz
+
+if [ ! -f /usr/bin/umlet ]; then
+	cd /home/vagrant
+	mkdir Builds
+	cd Builds
+	wget http://www.umlet.com/umlet_12_2/umlet_12.2.zip -O umlet.zip
+	unzip umlet.zip
+	rm -rf umlet.zip
+	sudo tee /usr/bin/umlet <<EOF
+#!/bin/bash
+java -jar /home/vagrant/Builds/Umlet/umlet.jar "\$@"
+EOF
+	sudo chmod a+x /usr/bin/umlet
+fi
 # for previewing results
 sudo apt-get install -y evince
 # pygmentize & lexer for pseudocode

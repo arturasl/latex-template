@@ -62,6 +62,11 @@ case "$inputFileExt" in
 		fi
 		;;
 
+	uxf)
+		umlet -action=convert -format=pdf "-filename=$1" "-output=$tmpFile"
+		mv "${tmpFile}.pdf" "$2"
+		;;
+
 	dot)
 		cmd=dot
 		if [ ! -z "$3" ]; then

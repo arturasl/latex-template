@@ -4,7 +4,7 @@ cd ../../
 
 ( cd latex-template && vagrant up )
 
-for dir in dia dot gpline inkscape png tex pseudocode; do
+for dir in dia dot gpline inkscape png tex pseudocode umlet; do
 	if [ ! -d "$dir" ]; then
 		mkdir "$dir"
 		ln -s "../../${dir}" "latex-template/src/${dir}"

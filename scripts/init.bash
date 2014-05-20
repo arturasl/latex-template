@@ -13,9 +13,10 @@ done
 
 cat <<EOF > Makefile
 .PHONY: run all clean diff
+FN_IN_VAGRANT = cd latex-template/; vagrant up; echo 'cd /vagrant/latex-template && \$(1) && exit' | vagrant ssh | grep -v '^(\\.\\?/'
 
 all:
-	cd latex-template/; vagrant up; echo 'cd /vagrant/latex-template && make all && exit' | vagrant ssh
+	\$(call FN_IN_VAGRANT,make all)
 
 run:
 	~/configs/scripts/showme.bash --silent-detached latex-template/output/main.pdf
@@ -24,8 +25,7 @@ diff:
 	read -p 'Git tag version: ' tag ; cd latex-template/; vagrant up; echo "cd /vagrant/latex-template && make diff GIT_TAG_VERSION=$\$tag && exit" | vagrant ssh
 
 clean:
-	cd latex-template/; vagrant up; echo 'cd /vagrant/latex-template && make clean && exit' | vagrant ssh
-
+	\$(call FN_IN_VAGRANT,make clean)
 EOF
 
 [ ! -f bibliography.bib ] && cat <<EOF > bibliography.bib

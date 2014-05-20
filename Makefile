@@ -18,10 +18,11 @@ UMLETDIR := umlet
 
 # find all psedocode (or any other special file) files in ./src/pseudocode
 # obj files will be these files put into obj (preserving relative directory from src) directory and with .tex substituted with .pdf
+FN_MAKE_FILE_LIST = $(addprefix $(OBJDIR)/$(1)/,$(shell find ./src/$(1)/ -name '*.$(2)' | sed -e 's/\.$(2)/.pdf/g' | sed -e 's/\.\/src\/[^/]\+\///g'))
 PSEDOCODEFILES := $(addprefix $(OBJDIR)/$(PSEUDOCODEDIR)/,$(notdir $(shell find ./src/$(PSEUDOCODEDIR)/ -type f -a ! \( -name 'README.mkd' -o -name 'Makefile' \) | sed -e 's/\(.*\)\..*/\1.pdf/g' )))
 DOTFILES := $(addprefix $(OBJDIR)/$(DOTDIR)/,$(notdir $(shell find ./src/$(DOTDIR)/ -name '*.dot' | sed -e 's/\.dot/.pdf/g' )))
 DIAFILES := $(addprefix $(OBJDIR)/$(DIADIR)/,$(notdir $(shell find ./src/$(DIADIR)/ -name '*.dia' | sed -e 's/\.dia/.pdf/g' )))
-UMLETFILES := $(addprefix $(OBJDIR)/$(UMLETDIR)/,$(notdir $(shell find ./src/$(UMLETDIR)/ -name '*.uxf' | sed -e 's/\.uxf/.pdf/g' )))
+UMLETFILES := $(call FN_MAKE_FILE_LIST,$(UMLETDIR),uxf)
 INKSCAPEFILES := $(addprefix $(OBJDIR)/$(INKSCAPEDIR)/,$(notdir $(shell find ./src/$(INKSCAPEDIR)/ -name '*.svg' | sed -e 's/\.svg/.pdf/g' )))
 GPLINEFILES := $(addprefix $(OBJDIR)/$(GPLINEDIR)/,$(notdir $(shell find ./src/$(GPLINEDIR)/ -name '*.csv' | sed -e 's/\.csv/.pdf/g' )))
 
@@ -40,6 +41,7 @@ GLOSSARIES := makeglossaries -L lithuanian
 all: objstructure $(OUTPUTDIR)/$(MAIN_FILE).pdf
 
 objstructure:
+	echo "${UMLETFILES}"
 	mkdir -p \
 		$(OUTPUTDIR) \
 		$(OBJDIR)/$(PSEUDOCODEDIR) \
@@ -100,7 +102,8 @@ $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia
 	./scripts/topdf.bash $< $(OBJDIR)/$(DIADIR)/$(basename $(notdir $<)).pdf
 
 $(OBJDIR)/$(UMLETDIR)/%.pdf: src/$(UMLETDIR)/%.uxf
-	./scripts/topdf.bash $< $(OBJDIR)/$(UMLETDIR)/$(basename $(notdir $<)).pdf
+	mkdir -p '$(OBJDIR)/$(UMLETDIR)/$(dir $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g'))'
+	./scripts/topdf.bash $< $(OBJDIR)/$(UMLETDIR)/$(basename $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g')).pdf
 
 $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia
 	./scripts/topdf.bash $< $(OBJDIR)/$(DIADIR)/$(basename $(notdir $<)).pdf

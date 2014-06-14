@@ -2,7 +2,7 @@
 
 cd ../../
 
-( cd latex-template && vagrant up )
+( cd latex-template && vagrant up --provision )
 
 for dir in dia dot gpline inkscape png tex pseudocode umlet; do
 	if [ ! -d "$dir" ]; then
@@ -51,12 +51,10 @@ EOF
 \input{newcommands}
 
 \vumifpaper{}
-\title{\large\textbf{Savioptimizavimas reliacinėse duomenų bazių sistemose}\\(angl. Self-optimization in relational database management systems)\\\vspace{0.5cm}\small{Tema}}
-\author{
-    Artūras Lapinskas\hspace{0.7cm} % kursas nenurodomas
-}
-\supervisor{lekt. I. Radavičius\hspace{1.2cm}}
-\reviewer{doc. dr. V. Tumasonis\hspace{0.1cm}}
+\title{\large\textbf{Savioptimizavimas reliacinėse duomenų bazių sistemose}\\\\(angl. Self-optimization in relational database management systems)\\\\\vspace{0.5cm}\small{Tema}}
+\author{Artūras Lapinskas}
+\supervisor{lekt. I. Radavičius}
+\reviewer{lekt. A. Stočkus}
 
 \usepackage{listings}
 \lstset{breaklines=true}
@@ -80,7 +78,7 @@ EOF
 EOF
 
 [ ! -f tex/appendix.tex ] && cat <<EOF > tex/appendix.tex
-\cite{test}
+\nocite{*}
 \bibliography{}
 \printindex
 \printglossaries

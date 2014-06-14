@@ -53,12 +53,11 @@ $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEDOCODE
 	bash -c "rm -f $(OBJDIR)/$(MAIN_FILE).{glg,gls,glo,alg,acr,acn,xdy}" # xindy somehow fails without fully recreating everythin
 	# make
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
-	# bibliography
-	$(BIBTEX) $(OBJDIR)/$(MAIN_FILE)
-	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
-	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	# glossaries
 	( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) )
+	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex # will add glossaries page which can be picked up by bibtex
+	# bibliography
+	$(BIBTEX) $(OBJDIR)/$(MAIN_FILE)
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	# move

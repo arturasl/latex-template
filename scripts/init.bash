@@ -45,8 +45,8 @@ EOF
 \input{lithuanian}
 \input{draftonlycommands}
 \input{vusemesterworkstyle}
-\input{generalstyle}
 \input{newcommands}
+\input{generalstyle}
 
 \vumifpaper{}
 \title{\large\textbf{Savioptimizavimas reliacinėse duomenų bazių sistemose}\\\\(angl. Self-optimization in relational database management systems)\\\\\vspace{0.5cm}\small{Tema}}
@@ -67,12 +67,8 @@ EOF
 EOF
 
 [ ! -f tex/glossary.tex ] && cat <<EOF > tex/glossary.tex
-\newglossaryentry{label1} {
-  name=name,
-  description={desc}
-}
-
-\newacronym{label2}{abbriaviation}{long name}
+\glsDef        {ABC}    {ABC Name}  {ABC Description}
+\glsDefAndAcc  {ABC}    {ABC Name}  {ABC Description}
 EOF
 
 [ ! -f tex/appendix.tex ] && cat <<EOF > tex/appendix.tex

@@ -59,3 +59,35 @@
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
 \newcommand\silentsection[1]{\section*{#1}\addcontentsline{toc}{section}{#1}}
+
+% creates a new glossary entry
+% 1 parameter - name of glossary which will be used to distinguish
+% this entry from other ones. Also a new macro with the same name
+% will be created which will enable easier glossary linking
+% 2 parameter - name
+% 3 parameter - description
+\newcommand{\glsDef}[3]{
+  \newglossaryentry{#1} {
+    name={#2},
+    description={#3}
+  }
+  \expandafter\newcommand\csname #1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\xspace}
+}
+
+% creates a new glossary and acronym entry entry
+% 1 parameter - acronym (also will be used in creating macro)
+% 2 parameter - name
+% 3 parameter - description
+\newcommand{\glsDefAndAcc}[3]{
+  \newglossaryentry{def#1} {
+    name={#2},
+    description={#3}
+  }
+  \newglossaryentry{#1}{
+    type=\acronymtype,
+    name={#1},
+    description={#2},
+    see=[Apibrėžimai:]{def#1}
+  }
+  \expandafter\newcommand\csname #1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\glsadd{def#1}\xspace}
+}

@@ -5,8 +5,8 @@ cd ../../
 ( cd latex-template && vagrant up --provision )
 
 for dir in dia dot gpline inkscape png tex pseudocode umlet; do
-	[ ! -d "$dir" ]                    && mkdir "$dir"
-	[ -L "latex-template/src/${dir}" ] && ln -s "../../${dir}" "latex-template/src/${dir}"
+	[ ! -d "$dir" ]                      && mkdir "$dir"
+	[ ! -L "latex-template/src/${dir}" ] && ln -s "../../${dir}" "latex-template/src/${dir}"
 done
 
 cat <<EOF > Makefile

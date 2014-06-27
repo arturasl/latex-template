@@ -67,8 +67,8 @@ EOF
 EOF
 
 [ ! -f tex/glossary.tex ] && cat <<EOF > tex/glossary.tex
-\glsDef        {ABC}    {ABC Name}  {ABC Description}
-\glsDefAndAcc  {ABC}    {ABC Name}  {ABC Description}
+\glsDef        {ABC1}    {ABC Name}  {ABC Description}
+\glsDefAndAcc  {ABC2}    {ABC Name}  {ABC Description}
 EOF
 
 [ ! -f tex/appendix.tex ] && cat <<EOF > tex/appendix.tex

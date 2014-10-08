@@ -2,42 +2,6 @@
 
 % automatically rename document elements (contents <-> turinys, etc.)
 \usepackage[lithuanian]{babel}
-\usepackage[style=german,strict=true,maxlevel=2]{csquotes}
-\MakeOuterQuote{"}
-% http://comp.text.tex.narkive.com/pMGSwIkv/csquotes-suggestion-if-xspace-is-loaded
-\xspaceaddexceptions{%
-\textquotedblleft,%
-\textquotedblright,%
-\quotedblbase,%
-\guillemotleft,%
-\guillemotright,%
-\textquoteleft,%
-\textquoteright,%
-\quotesinglbase,%
-\guilsinglleft,%
-\guilsinglright,%
-\mkfrenchopenquote,%
-\mkfrenchclosequote,%
-}
-
-\ifxetex
-	% to get font: http://ftp.akl.lt/Linux/Baltix/Ubuntu/Baltix-Linux/Baltix-Ubuntu-packages/jaunty/ttf-palemonas/
-	\usepackage{fontspec}
-
-	% allow to use ascents on Latin letters (for example \k{a})
-	\usepackage{xunicode}
-
-	\ifPALEMONAS
-		\newfontfamily\sss{Palemonas}
-		\setmainfont{Palemonas}
-	\fi
-\else
-	\usepackage[utf8x]{inputenc}
-	\usepackage[L7x]{fontenc}
-\fi
-
-% Lithuanian encoding breaks verbatim environment - this line fixes that
-\renewcommand{\ttdefault}{lmtt}
 
 % fixing captions
 \captionsetup[table]{labelsep=space}      % do not add colon after table names (Table.: <- colon is bad)

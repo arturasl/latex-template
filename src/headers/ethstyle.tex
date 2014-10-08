@@ -1,0 +1,58 @@
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
+
+\let\oldbibliography\bibliography
+\renewcommand{\bibliography}{%
+    \cleardoublepage%
+	% \pagenumbering{gobble}%
+    \addcontentsline{toc}{section}{\refname}%}
+    \oldbibliography{src/bib/bibliography}%
+	\bibliographystyle{src/bib/vumifbibstyle}%
+}
+
+\AtBeginDocument{%
+	\pagenumbering{gobble}%
+	\maketitle%
+	\tableofcontents%
+	\pagenumbering{arabic}%
+	\setcounter{page}{3}
+}
+
+\renewcommand\maketitle{
+    \pagenumbering{roman} %kai
+    \begin{titlepage}%
+	\noindent\includegraphics[viewport=8 8 185 55]{eth_logo_black} \hfill
+
+	\vspace{3cm}
+	\begin{center}
+	    {\huge \bfseries Praeco} \\
+	    {\large A message passing system}
+	\end{center}
+
+	\vspace{0.4cm}
+	\begin{center}
+	    {\large Artūras Lapinskas}\\
+	    \texttt{\small arturasl@student.ethz.ch}
+	\end{center}%
+
+	\vspace{0.4cm}
+	\begin{center}
+	    Advanced Systems Lab 2014 \\[2pt]
+	    Systems Group \\[2pt]
+	    ETH Z\"urich
+	\end{center}
+
+    	\vfill
+    	\begin{center}
+    	    \textbf{Supervisors:}\\[2pt]
+	    Jana Giceva\\
+	    Prof. Dr. Gustavo Alonso
+    	\end{center}
+
+    	\vspace{0.2cm}
+    	\begin{center}
+	    \today
+    	\end{center}
+
+    \end{titlepage}
+}

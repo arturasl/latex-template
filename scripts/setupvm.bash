@@ -22,7 +22,7 @@ if [ ! -f /usr/bin/umlet ]; then
 	cd /home/vagrant
 	mkdir Builds
 	cd Builds
-	wget http://www.umlet.com/umlet_12_2/umlet_12.2.zip -O umlet.zip
+	wget http://www.umlet.com/umlet_13_0/umlet_13.0.zip -O umlet.zip
 	unzip umlet.zip
 	rm -rf umlet.zip
 	sudo tee /usr/bin/umlet <<EOF

@@ -15,6 +15,7 @@ INKSCAPEDIR := inkscape
 GPLINEDIR := gpline
 TEXDIR := tex
 UMLETDIR := umlet
+PDFDIR := pdfimg
 
 # find all psedocode (or any other special file) files in ./src/pseudocode
 # obj files will be these files put into obj (preserving relative directory from src) directory and with .tex substituted with .pdf
@@ -23,6 +24,7 @@ PSEDOCODEFILES := $(addprefix $(OBJDIR)/$(PSEUDOCODEDIR)/,$(notdir $(shell find 
 DOTFILES := $(addprefix $(OBJDIR)/$(DOTDIR)/,$(notdir $(shell find ./src/$(DOTDIR)/ -name '*.dot' | sed -e 's/\.dot/.pdf/g' )))
 DIAFILES := $(addprefix $(OBJDIR)/$(DIADIR)/,$(notdir $(shell find ./src/$(DIADIR)/ -name '*.dia' | sed -e 's/\.dia/.pdf/g' )))
 UMLETFILES := $(call FN_MAKE_FILE_LIST,$(UMLETDIR),uxf)
+PDFFILES := $(call FN_MAKE_FILE_LIST,$(PDFDIR),pdf)
 INKSCAPEFILES := $(addprefix $(OBJDIR)/$(INKSCAPEDIR)/,$(notdir $(shell find ./src/$(INKSCAPEDIR)/ -name '*.svg' | sed -e 's/\.svg/.pdf/g' )))
 GPLINEFILES := $(addprefix $(OBJDIR)/$(GPLINEDIR)/,$(notdir $(shell find ./src/$(GPLINEDIR)/ -name '*.csv' | sed -e 's/\.csv/.pdf/g' )))
 
@@ -41,17 +43,17 @@ GLOSSARIES := makeglossaries -L lithuanian
 all: objstructure $(OUTPUTDIR)/$(MAIN_FILE).pdf
 
 objstructure:
-	echo "${UMLETFILES}"
 	mkdir -p \
 		$(OUTPUTDIR) \
 		$(OBJDIR)/$(PSEUDOCODEDIR) \
 		$(OBJDIR)/$(DOTDIR) \
 		$(OBJDIR)/$(DIADIR) \
 		$(OBJDIR)/$(UMLETDIR) \
+		$(OBJDIR)/$(PDFDIR) \
 		$(OBJDIR)/$(INKSCAPEDIR) \
 		$(OBJDIR)/$(GPLINEDIR)
 
-$(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEDOCODEFILES) $(DOTFILES) $(DIAFILES) $(UMLETFILES) $(INKSCAPEFILES) $(GPLINEFILES)
+$(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEDOCODEFILES) $(DOTFILES) $(DIAFILES) $(PDFFILES) $(INKSCAPEFILES) $(GPLINEFILES) $(UMLETFILES)
 	bash -c "rm -f $(OBJDIR)/$(MAIN_FILE).{glg,gls,glo,alg,acr,acn,xdy}" # xindy somehow fails without fully recreating everythin
 	# make
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
@@ -103,6 +105,11 @@ $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia
 $(OBJDIR)/$(UMLETDIR)/%.pdf: src/$(UMLETDIR)/%.uxf
 	mkdir -p '$(OBJDIR)/$(UMLETDIR)/$(dir $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g'))'
 	./scripts/topdf.bash $< $(OBJDIR)/$(UMLETDIR)/$(basename $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g')).pdf
+
+$(OBJDIR)/$(PDFDIR)/%.pdf: src/$(PDFDIR)/%.pdf
+	echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+	mkdir -p '$(OBJDIR)/$(PDFDIR)/$(dir $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g'))'
+	cp $< $(OBJDIR)/$(PDFDIR)/$(basename $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g')).pdf
 
 $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia
 	./scripts/topdf.bash $< $(OBJDIR)/$(DIADIR)/$(basename $(notdir $<)).pdf

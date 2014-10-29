@@ -1,5 +1,5 @@
 # allow including files (from latex) from these directories
-TEXINPUTS := ./src/styles/:./src/tex/:./src/headers/:./src/bib/:${TEXINPUTS}
+TEXINPUTS := ./src:./src/styles/:./src/tex/:./src/headers/:./src/bib/:${TEXINPUTS}
 export TEXINPUTS
 
 # do not add separator at the end
@@ -107,7 +107,6 @@ $(OBJDIR)/$(UMLETDIR)/%.pdf: src/$(UMLETDIR)/%.uxf
 	./scripts/topdf.bash $< $(OBJDIR)/$(UMLETDIR)/$(basename $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g')).pdf
 
 $(OBJDIR)/$(PDFDIR)/%.pdf: src/$(PDFDIR)/%.pdf
-	echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 	mkdir -p '$(OBJDIR)/$(PDFDIR)/$(dir $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g'))'
 	cp $< $(OBJDIR)/$(PDFDIR)/$(basename $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g')).pdf
 

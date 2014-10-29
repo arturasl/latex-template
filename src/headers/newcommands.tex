@@ -21,6 +21,7 @@
 % will be also used as label
 % 3 parameter - caption (if you do not want to insert caption
 % pass empty string
+% example: \includefloatingobj[0.7\linewidth]{pdfimg:my_pdf}{This is my pdf}
 \newcommand{\includefloatingobj}[3][0.5\linewidth]{
 	\begin{figure}[h!tbp]
 		\centering{
@@ -30,6 +31,12 @@
 		}
 	\end{figure}
 }
+
+% example: 
+% \includetwofloatingobjs%
+% {gpline:pic_1}{title 1}%
+% {gpline:pic_2}{title 2}%
+% {full title}
 
 \newcommand{\includetwofloatingobjs}[6][0.45]{
 	\begin{figure}[h!tbp]

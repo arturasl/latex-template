@@ -7,7 +7,7 @@ OBJDIR := obj
 OUTPUTDIR := output
 MAIN_FILE := main
 
-# all files in psedocode and dot directories should start with these
+# all files in pseudocode and dot directories should start with these
 PSEUDOCODEDIR := pseudocode
 DIADIR := dia
 DOTDIR := dot
@@ -17,10 +17,10 @@ TEXDIR := tex
 UMLETDIR := umlet
 PDFDIR := pdfimg
 
-# find all psedocode (or any other special file) files in ./src/pseudocode
+# find all pseudocode (or any other special file) files in ./src/pseudocode
 # obj files will be these files put into obj (preserving relative directory from src) directory and with .tex substituted with .pdf
 FN_MAKE_FILE_LIST = $(addprefix $(OBJDIR)/$(1)/,$(shell find ./src/$(1)/ -name '*.$(2)' | sed -e 's/\.$(2)/.pdf/g' | sed -e 's/\.\/src\/[^/]\+\///g'))
-PSEDOCODEFILES := $(addprefix $(OBJDIR)/$(PSEUDOCODEDIR)/,$(notdir $(shell find ./src/$(PSEUDOCODEDIR)/ -type f -a ! \( -name 'README.mkd' -o -name 'Makefile' \) | sed -e 's/\(.*\)\..*/\1.pdf/g' )))
+PSEUDOCODEFILES := $(addprefix $(OBJDIR)/$(PSEUDOCODEDIR)/,$(notdir $(shell find ./src/$(PSEUDOCODEDIR)/ -type f -a ! \( -name 'README.mkd' -o -name 'Makefile' -o -name '.*' \) | sed -e 's/\(.*\)\..*/\1.pdf/g' )))
 DOTFILES := $(addprefix $(OBJDIR)/$(DOTDIR)/,$(notdir $(shell find ./src/$(DOTDIR)/ -name '*.dot' | sed -e 's/\.dot/.pdf/g' )))
 DIAFILES := $(addprefix $(OBJDIR)/$(DIADIR)/,$(notdir $(shell find ./src/$(DIADIR)/ -name '*.dia' | sed -e 's/\.dia/.pdf/g' )))
 UMLETFILES := $(call FN_MAKE_FILE_LIST,$(UMLETDIR),uxf)
@@ -53,7 +53,7 @@ objstructure:
 		$(OBJDIR)/$(INKSCAPEDIR) \
 		$(OBJDIR)/$(GPLINEDIR)
 
-$(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEDOCODEFILES) $(DOTFILES) $(DIAFILES) $(PDFFILES) $(INKSCAPEFILES) $(GPLINEFILES) $(UMLETFILES)
+$(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEUDOCODEFILES) $(DOTFILES) $(DIAFILES) $(PDFFILES) $(INKSCAPEFILES) $(GPLINEFILES) $(UMLETFILES)
 	bash -c "rm -f $(OBJDIR)/$(MAIN_FILE).{glg,gls,glo,alg,acr,acn,xdy}" # xindy somehow fails without fully recreating everythin
 	# make
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex

@@ -9,9 +9,10 @@ setup(
     description = __doc__,
     author = "Arturas",
     install_requires=['pygments'],
-    packages = ['pseudolexer'],
+    packages = ['pseudolexer', 'asn1lexer'],
     entry_points = '''
 [pygments.lexers]
 PseudoLexer = pseudolexer:PseudoLexer
+Asn1Lexer = asn1lexer:Asn1Lexer
 '''
 ) 

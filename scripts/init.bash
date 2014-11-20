@@ -42,6 +42,7 @@ EOF
 \input{conditions}
 \input{packages}
 \input{pseudocode}
+\input{unicode}
 \input{lithuanian}
 \input{draftonlycommands}
 \input{vusemesterworkstyle}

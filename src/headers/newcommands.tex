@@ -98,3 +98,7 @@
   }
   \expandafter\newcommand\csname #1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\glsadd{def#1}\xspace}
 }
+
+% commands for more sub*sections
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}\mbox{}\\}

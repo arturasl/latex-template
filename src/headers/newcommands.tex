@@ -98,3 +98,5 @@
   }
   \expandafter\newcommand\csname #1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\glsadd{def#1}\xspace}
 }
+
+\newcommand{\citep}[2]{\cite[p. {#1}]{{#2}}} % yes, there are a lot of similar commands...

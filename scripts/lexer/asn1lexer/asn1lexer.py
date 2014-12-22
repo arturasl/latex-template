@@ -9,7 +9,9 @@ class Asn1Lexer(RegexLexer):
 
     keywords = [
         'SET',
+        'SET OF',
         'SEQUENCE',
+        'SEQUENCE OF',
         "CHOICE",
         "NULL",
     ]

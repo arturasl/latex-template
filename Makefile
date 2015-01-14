@@ -58,10 +58,14 @@ $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEUDOCOD
 	# make
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	# glossaries
-	( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) )
-	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex # will add glossaries page which can be picked up by bibtex
+	if [ -f ../tex/glossary.tex ]; then \
+		( cd $(OBJDIR) && $(GLOSSARIES) $(MAIN_FILE) ) ; \
+		$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex ; \
+	fi;
 	# bibliography
-	$(BIBTEX) $(OBJDIR)/$(MAIN_FILE)
+	if [ -f ../bibliography.bib ]; then \
+		$(BIBTEX) $(OBJDIR)/$(MAIN_FILE) ; \
+	fi;
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	# move

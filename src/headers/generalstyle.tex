@@ -28,4 +28,4 @@
 \renewcommand{\itemhook}{\addtolength{\itemsep}{-0.5\baselineskip}}
 \renewcommand{\descripthook}{\addtolength{\itemsep}{-0.5\baselineskip}}
 
-\input{glossary}
+\IfFileExists{glossary}{\input{glossary}}{}

@@ -7,8 +7,8 @@
 \newcommand{\includeobj}[2][0.5\linewidth]{
 	\ifINCLUDEOBJS
 		\IfBeginWith{#2}{png:}%
-			{\StrSubstitute{#2.png}{:}{/}[\includeobjfilename]}%
-			{\StrSubstitute{obj/#2.pdf}{:}{/}[\includeobjfilename]}
+			{\StrSubstitute{#2}{:}{/}[\includeobjfilename]}%
+			{\StrSubstitute{obj/#2}{:}{/}[\includeobjfilename]}
 		\includegraphics[width=#1,keepaspectratio]{\includeobjfilename}
 	\else
 		here will be ,,#1``

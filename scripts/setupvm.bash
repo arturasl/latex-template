@@ -15,7 +15,7 @@ if [ ! -d /home/vagrant/texmf/tex/latex/standalone ]; then
 	rm standalone.tds.zip
 fi
 # workers - used to convert various formats to pdf
-sudo apt-get install -y dia inkscape gnuplot imagemagick
+sudo apt-get install -y dia inkscape gnuplot imagemagick xcftools
 sudo add-apt-repository -y ppa:gviz-adm/graphviz-dev && sudo apt-get -y update && sudo apt-get install -y graphviz
 
 if [ ! -f /usr/bin/umlet ]; then

@@ -16,6 +16,7 @@ GPLINEDIR := gpline
 TEXDIR := tex
 UMLETDIR := umlet
 PDFDIR := pdfimg
+GIMPDIR := gimp
 
 # find all pseudocode (or any other special file) files in ./src/pseudocode
 # obj files will be these files put into obj (preserving relative directory from src) directory and with .tex substituted with .pdf
@@ -26,6 +27,7 @@ DIAFILES := $(addprefix $(OBJDIR)/$(DIADIR)/,$(notdir $(shell find ./src/$(DIADI
 UMLETFILES := $(call FN_MAKE_FILE_LIST,$(UMLETDIR),uxf)
 PDFFILES := $(call FN_MAKE_FILE_LIST,$(PDFDIR),pdf)
 INKSCAPEFILES := $(addprefix $(OBJDIR)/$(INKSCAPEDIR)/,$(notdir $(shell find ./src/$(INKSCAPEDIR)/ -name '*.svg' | sed -e 's/\.svg/.pdf/g' )))
+GIMPFILES := $(addprefix $(OBJDIR)/$(GIMPDIR)/,$(notdir $(shell find ./src/$(GIMPDIR)/ -name '*.xcf' | sed -e 's/\.xcf/.png/g' )))
 GPLINEFILES := $(addprefix $(OBJDIR)/$(GPLINEDIR)/,$(notdir $(shell find ./src/$(GPLINEDIR)/ -name '*.csv' | sed -e 's/\.csv/.pdf/g' )))
 
 # set up compiler options
@@ -51,9 +53,10 @@ objstructure:
 		$(OBJDIR)/$(UMLETDIR) \
 		$(OBJDIR)/$(PDFDIR) \
 		$(OBJDIR)/$(INKSCAPEDIR) \
-		$(OBJDIR)/$(GPLINEDIR)
+		$(OBJDIR)/$(GPLINEDIR) \
+		$(OBJDIR)/$(GIMPDIR)
 
-$(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEUDOCODEFILES) $(DOTFILES) $(DIAFILES) $(PDFFILES) $(INKSCAPEFILES) $(GPLINEFILES) $(UMLETFILES)
+$(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEUDOCODEFILES) $(DOTFILES) $(DIAFILES) $(PDFFILES) $(INKSCAPEFILES) $(GPLINEFILES) $(UMLETFILES) $(GIMPFILES)
 	bash -c "rm -f $(OBJDIR)/$(MAIN_FILE).{glg,gls,glo,alg,acr,acn,xdy}" # xindy somehow fails without fully recreating everythin
 	# make
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
@@ -105,6 +108,9 @@ $(OBJDIR)/$(DOTDIR)/%.pdf: src/$(DOTDIR)/%.dot
 
 $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia
 	./scripts/topdf.bash $< $(OBJDIR)/$(DIADIR)/$(basename $(notdir $<)).pdf
+
+$(OBJDIR)/$(GIMPDIR)/%.png: src/$(GIMPDIR)/%.xcf
+	xcf2png $< -o $(OBJDIR)/$(GIMPDIR)/$(basename $(notdir $<)).png
 
 $(OBJDIR)/$(UMLETDIR)/%.pdf: src/$(UMLETDIR)/%.uxf
 	mkdir -p '$(OBJDIR)/$(UMLETDIR)/$(dir $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g'))'

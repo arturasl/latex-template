@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xe
 
 sudo apt-get -y update
 # core stuff
@@ -44,9 +44,10 @@ sudo patch /usr/local/lib/python2.7/dist-packages/Pygments-1.6-py2.7.egg/pygment
 
 # fonts
 if [ ! -d /usr/local/share/fonts/truetype/palemonas ]; then
-	wget http://www.vlkk.lt/i/u/file/Palemonas-2_1.zip && unzip Palemonas-2_1.zip && rm -f Palemonas-2_1.zip
+	
+	wget -O palemonas.zip http://www.vlkk.lt/media/public/file/Palemonas/Palemonas-3_0.zip && unzip palemonas.zip && rm -f palemonas.zip
 	sudo mkdir -p /usr/local/share/fonts/truetype/palemonas
-	sudo cp Palemonas-2.1/*.ttf /usr/local/share/fonts/truetype/palemonas
+	sudo cp *alemonas*/*.ttf /usr/local/share/fonts/truetype/palemonas
 	sudo fc-cache
-	rm -rf Palemonas*
+	rm -rf *alemonas*
 fi

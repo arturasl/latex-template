@@ -103,7 +103,7 @@ diff:
 
 $(OBJDIR)/$(DOTDIR)/%.pdf: src/$(DOTDIR)/%.dot
 	# read first line of dot file - if it contains comment (//cmd: custom command) strip it and use its contents as dot command
-	$(eval CUSTOMDOTCMD := $(shell head -n 1 $< | grep '//cmd: ' | sed -e 's/\/\/cmd: //g'))
+	$(eval CUSTOMDOTCMD := $(shell head -n 1 $< | sed -e 's/[[:space:]]*//g' | grep '//cmd:' | sed -e 's/\/\/cmd://g'))
 	./scripts/topdf.bash $< $(OBJDIR)/$(DOTDIR)/$(basename $(notdir $<)).pdf "$(CUSTOMDOTCMD)"
 
 $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 function findDia () {
 	if command -v 'dia'; then
 		echo 'dia'
@@ -19,6 +21,17 @@ function findInkspace () {
 	else
 		echo 'Could not find inkspace executable' 1>&2
 		exit 1
+	fi
+}
+
+# converts dot file to ps handling virtual commands
+# $1 - cmd, $2 - type, $3 - input
+# outputs to $tmpFilePs
+function convertDotWithCmd () {
+	if [ "$1" = tree ]; then
+		dot "$3" | gvpr -c "-f${SCRIPT_DIR}/tree.gvpr" | neato -n "-T${2}" -o "$tmpFilePs" 2>&1
+	else
+		"$1" "-T${2}" -o "$tmpFilePs" "$3" 2>&1
 	fi
 }
 
@@ -73,12 +86,12 @@ case "$inputFileExt" in
 			cmd="$3"
 		fi
 
-		output=$("$cmd" -Tps:cairo -o "$tmpFilePs" "$1" 2>&1)
+		output=$(convertDotWithCmd "$cmd" 'ps:cairo' "$1")
 		echo "$output"
 		cairoerr=$(echo "$output" | grep 'Format: "ps:cairo" not recognized')
 		if [ -n "$cairoerr" ]; then
 			echo "using different dot driver" 1>&2
-			"$cmd" -Tps -o "$tmpFilePs" "$1"
+			convertDotWithCmd "$cmd" 'ps' "$1"
 		fi
 
 		"$0" "$tmpFilePs" "$2"

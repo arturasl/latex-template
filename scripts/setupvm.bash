@@ -40,11 +40,9 @@ if [ -z "$(pygmentize -L | grep 'pseudo:$')" ]; then
 	cd /vagrant/latex-template/scripts/lexer/
 	sudo python setup.py develop
 fi
-sudo patch /usr/local/lib/python2.7/dist-packages/Pygments-1.6-py2.7.egg/pygments/formatters/latex.py < /vagrant/latex-template/scripts/lexer/pygments.patch
 
 # fonts
 if [ ! -d /usr/local/share/fonts/truetype/palemonas ]; then
-	
 	wget -O palemonas.zip http://www.vlkk.lt/media/public/file/Palemonas/Palemonas-3_0.zip && unzip palemonas.zip && rm -f palemonas.zip
 	sudo mkdir -p /usr/local/share/fonts/truetype/palemonas
 	sudo cp *alemonas*/*.ttf /usr/local/share/fonts/truetype/palemonas

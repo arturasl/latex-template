@@ -7,7 +7,7 @@ proj="new"
 mkdir -p "${HOME}/Projects/Latex/${proj}"
 cd "${HOME}/Projects/Latex/${proj}"
 git init
-git submodule add https://github.com/arturasl/latex-template.git latex-template
+git submodule add git@github.com:arturasl/latex-template.git latex-template
 cd latex-template/scripts
 ./init.bash
 ```

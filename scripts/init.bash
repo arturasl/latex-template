@@ -2,7 +2,7 @@
 
 cd ../../
 
-( cd latex-template && vagrant up --provision )
+( cd latex-template && vagrant destroy --force && vagrant up --provision )
 
 for dir in dia dot gpline inkscape png tex pseudocode umlet pdfimg gimp; do
 	[ ! -d "$dir" ]                      && mkdir "$dir"

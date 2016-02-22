@@ -49,6 +49,7 @@ function finish {
 trap finish EXIT
 
 inputFileName="$1"
+mkdir -p "$(dirname ${inputFileName})"
 inputFileExt=${inputFileName##*.}
 
 case "$inputFileExt" in

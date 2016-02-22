@@ -20,15 +20,18 @@ GIMPDIR := gimp
 
 # find all pseudocode (or any other special file) files in ./src/pseudocode
 # obj files will be these files put into obj (preserving relative directory from src) directory and with .tex substituted with .pdf
-FN_MAKE_FILE_LIST = $(addprefix $(OBJDIR)/$(1)/,$(shell find ./src/$(1)/ -name '*.$(2)' | sed -e 's/\.$(2)/.pdf/g' | sed -e 's/\.\/src\/[^/]\+\///g'))
-PSEUDOCODEFILES := $(addprefix $(OBJDIR)/$(PSEUDOCODEDIR)/,$(notdir $(shell find ./src/$(PSEUDOCODEDIR)/ -type f -a ! \( -name 'README.mkd' -o -name 'Makefile' -o -name '.*' \) | sed -e 's/\(.*\)\..*/\1.pdf/g' )))
-DOTFILES := $(addprefix $(OBJDIR)/$(DOTDIR)/,$(notdir $(shell find ./src/$(DOTDIR)/ -name '*.dot' | sed -e 's/\.dot/.pdf/g' )))
-DIAFILES := $(addprefix $(OBJDIR)/$(DIADIR)/,$(notdir $(shell find ./src/$(DIADIR)/ -name '*.dia' | sed -e 's/\.dia/.pdf/g' )))
+FN_MAKE_FILE_LIST = $(addprefix $(OBJDIR)/$(1)/,$(shell find ./src/$(1)/ -name '*.$(2)' -a ! \( -name 'README.mkd' -o -name 'Makefile' -o -name '.*' \) | sed -e 's/\(.*\)\..*/\1.pdf/g' | sed -e 's/\.\/src\/[^/]\+\///g'))
+FN_OUTPUTDIR_FOR_FILE = $(OBJDIR)/$(1)/$(dir $(shell echo '$(2)' | sed -e 's/src\/[^/]\+\///g'))
+FN_OUTPUTNAME_FOR_FILE = $(OBJDIR)/$(1)/$(basename $(shell echo '$(2)' | sed -e 's/src\/[^/]\+\///g')).pdf
+
+PSEUDOCODEFILES := $(call FN_MAKE_FILE_LIST,$(PSEUDOCODEDIR),*)
+DOTFILES := $(call FN_MAKE_FILE_LIST,$(DOTDIR),dot)
+DIAFILES := $(call FN_MAKE_FILE_LIST,$(DIADIR),dia)
 UMLETFILES := $(call FN_MAKE_FILE_LIST,$(UMLETDIR),uxf)
 PDFFILES := $(call FN_MAKE_FILE_LIST,$(PDFDIR),pdf)
-INKSCAPEFILES := $(addprefix $(OBJDIR)/$(INKSCAPEDIR)/,$(notdir $(shell find ./src/$(INKSCAPEDIR)/ -name '*.svg' | sed -e 's/\.svg/.pdf/g' )))
+INKSCAPEFILES := $(call FN_MAKE_FILE_LIST,$(INKSCAPEDIR),svg)
 GIMPFILES := $(addprefix $(OBJDIR)/$(GIMPDIR)/,$(notdir $(shell find ./src/$(GIMPDIR)/ -name '*.xcf' | sed -e 's/\.xcf/.png/g' )))
-GPLINEFILES := $(addprefix $(OBJDIR)/$(GPLINEDIR)/,$(notdir $(shell find ./src/$(GPLINEDIR)/ -name '*.csv' | sed -e 's/\.csv/.pdf/g' )))
+GPLINEFILES := $(call FN_MAKE_FILE_LIST,$(GPLINEDIR),csv)
 
 # set up compiler options
 LATEXPARAMS := -shell-escape -file-line-error -interaction=nonstopmode --output-directory=$(OBJDIR)
@@ -74,12 +77,6 @@ $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEUDOCOD
 	# move
 	mv $(OBJDIR)/$(MAIN_FILE).pdf $(OUTPUTDIR)
 
-$(OBJDIR)/$(PSEUDOCODEDIR)/%.pdf: src/$(PSEUDOCODEDIR)/%.* src/headers/*.tex
-	./scripts/code_to_latex.bash "$<" "src/$(PSEUDOCODEDIR)/tmp" ./src/headers/pseudocode_before.tex ./src/headers/pseudocode_after.tex
-	# before real input file define what outputdirectory to use (needed for minted)
-	${CC} $(LATEXPARAMS) --output-directory=$(OBJDIR)/$(PSEUDOCODEDIR) -jobname=$(basename $(notdir $@)) "\def\myoutputdirectory{$(OBJDIR)/$(PSEUDOCODEDIR)}\input{src/$(PSEUDOCODEDIR)/tmp}"
-	rm -rf "src/$(PSEUDOCODEDIR)/tmp"
-
 diff:
 	mkdir -p ./tmp/
 	( cd .. && git checkout "$(GIT_TAG_VERSION)" ) && ./scripts/latexpand/latexpand --output ./tmp/main_old.tex ./src/tex/main.tex
@@ -101,33 +98,38 @@ diff:
 	rm -rf diffs.*
 	rm -rf ./tmp/
 
+$(OBJDIR)/$(PSEUDOCODEDIR)/%.pdf: src/$(PSEUDOCODEDIR)/%.* src/headers/*.tex
+	./scripts/code_to_latex.bash "$<" "src/$(PSEUDOCODEDIR)/tmp" ./src/headers/pseudocode_before.tex ./src/headers/pseudocode_after.tex
+	mkdir -p '$(call FN_OUTPUTDIR_FOR_FILE,$(PSEUDOCODEDIR),$<)'
+	# before real input file define what outputdirectory to use (needed for minted)
+	${CC} $(LATEXPARAMS) '--output-directory=$(call FN_OUTPUTDIR_FOR_FILE,$(PSEUDOCODEDIR),$<)' -jobname=$(basename $(notdir $@)) "\def\myoutputdirectory{$(call FN_OUTPUTDIR_FOR_FILE,$(PSEUDOCODEDIR),$<)}\input{src/$(PSEUDOCODEDIR)/tmp}"
+	rm -rf "src/$(PSEUDOCODEDIR)/tmp"
+
 $(OBJDIR)/$(DOTDIR)/%.pdf: src/$(DOTDIR)/%.dot
 	# read first line of dot file - if it contains comment (//cmd: custom command) strip it and use its contents as dot command
 	$(eval CUSTOMDOTCMD := $(shell head -n 1 $< | sed -e 's/[[:space:]]*//g' | grep '//cmd:' | sed -e 's/\/\/cmd://g'))
-	./scripts/topdf.bash $< $(OBJDIR)/$(DOTDIR)/$(basename $(notdir $<)).pdf "$(CUSTOMDOTCMD)"
+	./scripts/topdf.bash $< $(call FN_OUTPUTNAME_FOR_FILE,$(DOTDIR),$<) "$(CUSTOMDOTCMD)"
 
 $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia
-	./scripts/topdf.bash $< $(OBJDIR)/$(DIADIR)/$(basename $(notdir $<)).pdf
+	./scripts/topdf.bash $< $(call FN_OUTPUTNAME_FOR_FILE,$(DIADIR),$<)
 
 $(OBJDIR)/$(GIMPDIR)/%.png: src/$(GIMPDIR)/%.xcf
 	xcf2png $< -o $(OBJDIR)/$(GIMPDIR)/$(basename $(notdir $<)).png
 
 $(OBJDIR)/$(UMLETDIR)/%.pdf: src/$(UMLETDIR)/%.uxf
-	mkdir -p '$(OBJDIR)/$(UMLETDIR)/$(dir $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g'))'
-	./scripts/topdf.bash $< $(OBJDIR)/$(UMLETDIR)/$(basename $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g')).pdf
+	./scripts/topdf.bash $< $(call FN_OUTPUTNAME_FOR_FILE,$(UMLETDIR),$<)
 
 $(OBJDIR)/$(PDFDIR)/%.pdf: src/$(PDFDIR)/%.pdf
-	mkdir -p '$(OBJDIR)/$(PDFDIR)/$(dir $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g'))'
-	cp $< $(OBJDIR)/$(PDFDIR)/$(basename $(shell echo '$<' | sed -e 's/src\/[^/]\+\///g')).pdf
+	cp $< $(call FN_OUTPUTNAME_FOR_FILE,$(PDFDIR),$<)
 
 $(OBJDIR)/$(DIADIR)/%.pdf: src/$(DIADIR)/%.dia
-	./scripts/topdf.bash $< $(OBJDIR)/$(DIADIR)/$(basename $(notdir $<)).pdf
+	./scripts/topdf.bash $< $(call FN_OUTPUTNAME_FOR_FILE,$(DIADIR),$<)
 
 $(OBJDIR)/$(INKSCAPEDIR)/%.pdf: src/$(INKSCAPEDIR)/%.svg
-	./scripts/topdf.bash $< $(OBJDIR)/$(INKSCAPEDIR)/$(basename $(notdir $<)).pdf inkscape
+	./scripts/topdf.bash $< $(call FN_OUTPUTNAME_FOR_FILE,$(INKSCAPEDIR),$<) inkscape
 
 $(OBJDIR)/$(GPLINEDIR)/%.pdf: src/$(GPLINEDIR)/%.csv
-	./scripts/topdf.bash $< $(OBJDIR)/$(GPLINEDIR)/$(basename $(notdir $<)).pdf
+	./scripts/topdf.bash $< $(call FN_OUTPUTNAME_FOR_FILE,$(GPLINEDIR),$<)
 
 run:
 	evince $(OUTPUTDIR)/$(MAIN_FILE).pdf

@@ -2,7 +2,7 @@
 
 sudo apt-get -y update
 # core stuff
-sudo apt-get install -y make vim-gnome patch unzip software-properties-common git
+sudo apt-get install -y make vim-gnome patch unzip software-properties-common git fish
 sudo apt-get install -y openjdk-7-jre-headless
 # latex stuff
 sudo apt-get install -y texlive-full

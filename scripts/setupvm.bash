@@ -3,7 +3,9 @@
 sudo apt-get -y update
 # core stuff
 sudo apt-get install -y make vim-gnome patch unzip software-properties-common git fish
+# java
 sudo apt-get install -y openjdk-7-jre
+sudo bash -c 'echo "export _JAVA_AWT_WM_NONREPARENTING=1" >> /etc/profile'
 # latex stuff
 sudo apt-get install -y texlive-full
 if [ ! -d /home/vagrant/texmf/tex/latex/standalone ]; then

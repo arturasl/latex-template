@@ -75,6 +75,7 @@ EOF
 [ ! -f tex/appendix.tex ] && cat <<EOF > tex/appendix.tex
 \nocite{*}
 \bibliography{}
+\glsaddall
 \printindex
 \printglossaries
 % \appendix

@@ -78,7 +78,7 @@
     name={#2},
     description={#3}
   }
-  \expandafter\newcommand\csname #1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\xspace}
+  \expandafter\newcommand\csname kwd#1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\xspace}
 }
 
 % creates a new glossary and acronym entry entry
@@ -92,11 +92,10 @@
   }
   \newglossaryentry{#1}{
     type=\acronymtype,
-    name={#1},
-    description={#2},
-    see=[Apibrėžimai:]{def#1}
+	name={#1},
+    description=\glslink{def#1}{#2}
   }
-  \expandafter\newcommand\csname #1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\glsadd{def#1}\xspace}
+  \expandafter\newcommand\csname kwd#1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\glsadd{def#1}\xspace}
 }
 
 \newcommand{\citep}[2]{\cite[p. {#1}]{{#2}}} % yes, there are a lot of similar commands...

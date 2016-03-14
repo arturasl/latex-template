@@ -13,13 +13,13 @@ function findDia () {
 	fi
 }
 
-function findInkspace () {
-	if command -v 'inkspace'; then
-		echo 'inkspace'
+function findInkscape () {
+	if command -v 'inkscape'; then
+		echo 'inkscape'
 	elif [ -x '/Applications/Inkscape.app/Contents/Resources/bin/inkscape' ]; then
 		echo '/Applications/Inkscape.app/Contents/Resources/bin/inkscape'
 	else
-		echo 'Could not find inkspace executable' 1>&2
+		echo 'Could not find inkscape executable' 1>&2
 		exit 1
 	fi
 }
@@ -69,7 +69,7 @@ case "$inputFileExt" in
 
 	svg)
 		if [ "$3" = "inkscape" ]; then
-			$(findInkspace) --without-gui "--export-ps=${tmpFilePs}" "$1"
+			$(findInkscape) --without-gui "--export-ps=${tmpFilePs}" "$1"
 			"$0" "$tmpFilePs" "$2"
 		else
 			convert "$1" "$2"

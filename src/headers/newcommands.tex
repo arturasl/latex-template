@@ -90,11 +90,7 @@
     name={#2},
     description={#3}
   }
-  \newglossaryentry{#1}{
-    type=\acronymtype,
-	name={#1},
-    description=\glshyperlink{def#1}{#2}
-  }
+  \newacronym{#1}{#1}{\glslink{def#1}{#2}}
   \expandafter\newcommand\csname kwd#1\endcsname[1][#1]{\emph{\glslink{#1}{##1}}\glsadd{def#1}\xspace}
 }
 

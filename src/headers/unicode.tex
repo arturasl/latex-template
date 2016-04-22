@@ -25,8 +25,10 @@
 
 	\ifPALEMONAS
 		\newfontfamily\sss{Palemonas}
-		\setmainfont[Ligatures=NoCommon]{Palemonas}
+		\setmainfont[Ligatures=NoCommon,Mapping=tex-text]{Palemonas}
 	\fi
+
+	% allow to use all tex features regarding punctuation (double dashes, etc.)
 \else
 	\usepackage[utf8x]{inputenc}
 	\usepackage[L7x]{fontenc}

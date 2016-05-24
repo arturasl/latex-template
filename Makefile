@@ -60,7 +60,7 @@ objstructure:
 		$(OBJDIR)/$(GIMPDIR)
 
 $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEUDOCODEFILES) $(DOTFILES) $(DIAFILES) $(PDFFILES) $(INKSCAPEFILES) $(GPLINEFILES) $(UMLETFILES) $(GIMPFILES)
-	bash -c "rm -f $(OBJDIR)/$(MAIN_FILE).{glg,gls,glo,alg,acr,acn,xdy}" # xindy somehow fails without fully recreating everythin
+	bash -c "rm -f $(OBJDIR)/$(MAIN_FILE).{glg,gls,glo,alg,acr,acn,xdy,inext*,outext*}" # xindy somehow fails without fully recreating everythin
 	# make
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	# glossaries

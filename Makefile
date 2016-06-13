@@ -49,7 +49,6 @@ all: objstructure $(OUTPUTDIR)/$(MAIN_FILE).pdf
 
 objstructure:
 	mkdir -p \
-		$(OUTPUTDIR) \
 		$(OBJDIR)/$(PSEUDOCODEDIR) \
 		$(OBJDIR)/$(DOTDIR) \
 		$(OBJDIR)/$(DIADIR) \
@@ -75,7 +74,7 @@ $(OUTPUTDIR)/$(MAIN_FILE).pdf: src/$(TEXDIR)/*.tex src/headers/*.tex $(PSEUDOCOD
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	$(CC) $(LATEXPARAMS) src/$(TEXDIR)/$(MAIN_FILE).tex
 	# move
-	mv $(OBJDIR)/$(MAIN_FILE).pdf $(OUTPUTDIR)
+	mv $(OBJDIR)/$(MAIN_FILE).pdf $(OUTPUTDIR)/
 
 diff:
 	mkdir -p ./tmp/

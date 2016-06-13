@@ -9,6 +9,9 @@ for dir in dia dot gpline inkscape png tex pseudocode umlet pdfimg gimp; do
 	[ ! -L "latex-template/src/${dir}" ] && ln -s "../../${dir}" "latex-template/src/${dir}"
 done
 
+[ ! -d output ]                 && mkdir output
+[ ! -L latex-template/output ]  && ln -s ../output latex-template/output
+
 cat <<EOF > Makefile
 .PHONY: run all clean diff
 FN_IN_VAGRANT = cd latex-template/; vagrant up; echo 'cd /vagrant/latex-template && \$(1) && exit' | vagrant ssh | grep -v '^(\\.\\?/'
